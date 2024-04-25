@@ -23,6 +23,7 @@ public class Main extends ListenerAdapter {
     public static final Screen screen = new Screen();
     public static final JTextArea area = new JTextArea();
     public static void main(String[] args) {
+        Constants.TOKEN = args[0];
         SwingOutputStream outputStream = new SwingOutputStream(area);
         System.setErr(new PrintStream(outputStream));
         screen.setup(area);
