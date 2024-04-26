@@ -3,8 +3,8 @@ Keith's simple bot is a simple bot made by keith using lavaplayer and jda.
 # Repository
 ```gradle
 repositories {
-	mavenCentral()
-	maven {
+    mavenCentral()
+    maven {
         setUrl("https://jitpack.io")
     }
 }
