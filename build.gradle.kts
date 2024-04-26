@@ -22,8 +22,6 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 
     implementation("net.dv8tion:JDA:${jdaVersion}")
-    implementation("dev.arbjerg:lavaplayer:${lavaPlayerVersion}")
-
     implementation("org.slf4j:slf4j-api:${loggerVersion}")
 }
 
