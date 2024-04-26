@@ -1,5 +1,5 @@
 # About
-Keith's simple bot is a simple bot made by keith using lavaplayer and jda.
+Keith's simple bot is a simple bot made by keith using jda.
 # Repository
 bot version: [![](https://jitpack.io/v/keith17766666/keithSimpleBot.svg)](https://jitpack.io/#keith17766666/keithSimpleBot) <br>
 jda version: [![](https://img.shields.io/maven-central/v/net.dv8tion/JDA?color=blue)](https://img.shields.io/maven-central/v/net.dv8tion/JDA?color=blue) <br>
