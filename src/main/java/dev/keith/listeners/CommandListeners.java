@@ -11,20 +11,37 @@ import java.util.Objects;
 
 import static dev.keith.listeners.CommandListener.helper;
 
+
+/**
+ * All commands here.
+ */
 @SuppressWarnings("unused")
 public class CommandListeners {
+    /**
+     * don't let anyone init.
+     */
+    private CommandListeners() {}
+    /**
+     * ping command
+     */
     public static final EventListener PING =
             new CommandListener("ping",
                     event -> {
                         event.deferReply().queue();
                         event.getHook().sendMessage("Ping is: " + Constants.JDA.getGatewayPing() + "ms").queue();
                     });
+    /**
+     * hello command
+     */
     public static final EventListener HELLO =
             new CommandListener("hello",
                     event -> {
                 event.deferReply().queue();
                 event.getHook().sendMessage("Hello " + event.getUser().getName() + "!").queue();
             });
+    /**
+     * message command
+     */
     public static final EventListener MESSAGE =
             GenericEvent -> {
                 if(GenericEvent instanceof SlashCommandInteractionEvent event) {
@@ -36,6 +53,9 @@ public class CommandListeners {
                     }
                 }
             };
+    /**
+     * role command
+     */
     public static final EventListener ROLE =
             new CommandListener("role",
                     event -> {
@@ -53,13 +73,16 @@ public class CommandListeners {
                                 };
                         Constants.JDA.addEventListener(ROLE_HELPER);
                     });
+    /**
+     * invite command
+     */
     public static final EventListener INVITE =
             new CommandListener("invite",
                     event -> event.getHook().
-                            sendMessage(
-                                    "https://discord.com/oauth2/authorize?client_id" +
-                                            "=1231250638474707104&permissions=633318697598975" +
-                                            "&scope=bot+applications.commands").queue());
+                            sendMessage(Constants.INVITE_LINK).queue());
+    /**
+     * register slash command
+     */
     public static final EventListener SLASH =
             GenericEvent -> {
                 if(GenericEvent instanceof MessageReceivedEvent event) {
@@ -79,7 +102,9 @@ public class CommandListeners {
                     }
                 }
             };
-
+    /**
+     * help command
+     */
     public static final EventListener HELP =
             new CommandListener("help",
                     event -> event.getHook().sendMessage(

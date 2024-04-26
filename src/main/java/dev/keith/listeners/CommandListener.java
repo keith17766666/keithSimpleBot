@@ -11,16 +11,45 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+
+/**
+ * A better event listener for slash command.
+ * @see CommandHelper
+ */
 public class CommandListener implements EventListener {
+    /**
+     * The name.
+     */
     private final String command;
+    /**
+     * the handler for the event.
+     */
     private final Consumer<SlashCommandInteractionEvent> consumer;
+    /**
+     * the helper.
+     */
     public static CommandHelper helper = CommandHelper.getInstance();
+    /**
+     * the listeners for method {@code register(JDA jda)}
+     */
     private static final ArrayList<CommandListener> listeners = new ArrayList<>();
+
+    /**
+     * Simple init.
+     * @param command the name
+     * @param consumer the handler
+     */
     public CommandListener(String command, Consumer<SlashCommandInteractionEvent> consumer) {
         this.command = command;
         this.consumer = consumer;
         listeners.add(this);
     }
+
+    /**
+     * The event handle method.
+     * @param genericEvent the event.
+     * @see EventListener
+     */
     @Override
     public void onEvent(@NotNull GenericEvent genericEvent) {
         if (genericEvent instanceof SlashCommandInteractionEvent event) {
@@ -32,6 +61,11 @@ public class CommandListener implements EventListener {
             }
         }
     }
+
+    /**
+     * Register all slash command.
+     * @param jda the JDA.
+     */
     public static void register(JDA jda) {
         for(CommandListener listener : listeners) {
             jda.addEventListener(listener);

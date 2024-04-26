@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "dev.keith"
-version = "v.0.1.1-alpha"
+version = "v.0.1.2-alpha"
 var jdaVersion = "5.0.0-beta.22"
 var lavaPlayerVersion = "2.1.1"
 var loggerVersion = "2.0.7"

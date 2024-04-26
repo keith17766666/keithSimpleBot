@@ -5,17 +5,39 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import org.slf4j.event.Level;
 
+/**
+ * Constants for all classes.
+ */
 public final class Constants {
+    /**
+     * Don't let anyone init this class.
+     */
     private Constants() {}
+
+    /**
+     * The token.
+     */
     public static String TOKEN;
-    public static String INVITE_LINK =
-            "https://discord.com/oauth2/authorize?client_id=1231250638474707104&permissions=633318697598975&scope=bot+applications.commands";
+    /**
+     * The invite link for the bot.
+     */
+    public static String INVITE_LINK;
+    /**
+     * The logger.
+     */
     public static BotLogger LOGGER;
+    /**
+     * The jda.
+     */
     public static JDA JDA;
-    public static void createJDAfrom(String TOKEN) {
-        JDA = JDABuilder.createDefault(TOKEN)
+
+    /**
+     * Init the jda and connect.
+     * @param token -the token
+     */
+    public static void createJDAFrom(String token) {
+        JDA = JDABuilder.createDefault(token)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .setActivity(Activity.of(Activity.ActivityType.PLAYING,
                         "/help to get help, !slash to reload slash command."))

@@ -1,0 +1,7 @@
+{
+  "promos": {
+    "recommended": "0.1.2",
+    "latest": "0.1.2"
+  },
+  "inherit": true
+}

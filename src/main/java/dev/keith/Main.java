@@ -19,11 +19,31 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * The main class for the bot.
+ */
 public class Main extends ListenerAdapter {
+    /**
+     * is enabled the slash command?
+     */
     public static final Map<Guild, Boolean> enabledSlash = new HashMap<>();
+    /**
+     * the screen
+     */
     public static final Screen screen = new Screen();
+    /**
+     * the area
+     */
     public static final JTextArea area = new JTextArea();
+
+    /**
+     * a simple init
+     */
+    public Main() {}
+    /**
+     * main
+     * @param args the args
+     */
     public static void main(String[] args) {
         PrintStream outputStream = new PrintStream(new SwingOutputStream(area));
         System.setErr(outputStream);
@@ -35,10 +55,13 @@ public class Main extends ListenerAdapter {
             System.out.print("No token is provided, exit now");
             System.exit(1);
         }
-        Constants.createJDAfrom(Constants.TOKEN);
+        Constants.createJDAFrom(Constants.TOKEN);
         init();
     }
 
+    /**
+     * init the bot
+     */
     public static void init() {
         Constants.LOGGER.info("keith's bot started");
         Constants.INVITE_LINK = Constants.JDA.getInviteUrl(Permission.getPermissions(Permission.ALL_PERMISSIONS));
@@ -50,6 +73,11 @@ public class Main extends ListenerAdapter {
         Constants.LOGGER.info("Invite link: " + Constants.INVITE_LINK);
         Constants.LOGGER.info("Login in " + Constants.JDA.getSelfUser().getName());
     }
+
+    /**
+     * register all slash command
+     * @param id the guild id
+     */
     public static void register(Long id) {
         Guild guild = Constants.JDA.getGuildById(id);
         if(guild != null && enabledSlash.getOrDefault(guild, false)) {
