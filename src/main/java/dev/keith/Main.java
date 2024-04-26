@@ -2,6 +2,7 @@ package dev.keith;
 
 import dev.keith.constant.Constants;
 import dev.keith.listeners.CommandListener;
+import dev.keith.logging.BotLogger;
 import dev.keith.swing.Screen;
 import dev.keith.swing.SwingOutputStream;
 import net.dv8tion.jda.api.Permission;
@@ -11,6 +12,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import org.slf4j.event.Level;
 
 import javax.swing.*;
 import java.io.PrintStream;
@@ -23,21 +25,30 @@ public class Main extends ListenerAdapter {
     public static final Screen screen = new Screen();
     public static final JTextArea area = new JTextArea();
     public static void main(String[] args) {
-        Constants.TOKEN = args[0];
-        SwingOutputStream outputStream = new SwingOutputStream(area);
-        System.setErr(new PrintStream(outputStream));
+        PrintStream outputStream = new PrintStream(new SwingOutputStream(area));
+        System.setErr(outputStream);
+        Constants.LOGGER = new BotLogger("keith's bot", Level.DEBUG, outputStream);
         screen.setup(area);
+        try {
+            Constants.TOKEN = args[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.print("No token is provided, exit now");
+            System.exit(1);
+        }
+        Constants.createJDAfrom(Constants.TOKEN);
         init();
     }
 
     public static void init() {
-        Constants.LOGGER.info("keith's bot started.");
-        if(Constants.JDA.getGuilds().isEmpty()) {
-            Constants.LOGGER.warn("invite link: " + Constants.INVITE_LINK);
-        }
-        Constants.LOGGER.debug("registering command.");
+        Constants.LOGGER.info("keith's bot started");
+        Constants.INVITE_LINK = Constants.JDA.getInviteUrl(Permission.getPermissions(Permission.ALL_PERMISSIONS));
+
+        Constants.LOGGER.debug("registering command");
+
         CommandListener.register(Constants.JDA);
         Constants.JDA.addEventListener(new Main());
+        Constants.LOGGER.info("Invite link: " + Constants.INVITE_LINK);
+        Constants.LOGGER.info("Login in " + Constants.JDA.getSelfUser().getName());
     }
     public static void register(Long id) {
         Guild guild = Constants.JDA.getGuildById(id);

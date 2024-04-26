@@ -5,17 +5,21 @@ import org.slf4j.Marker;
 import org.slf4j.event.Level;
 import org.slf4j.helpers.AbstractLogger;
 
-import java.util.Arrays;
+import java.io.PrintStream;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class BotLogger extends AbstractLogger implements Logger {
     private final String name;
     private Level defaultLevel;
-    public BotLogger(String botName, Level defaultLevel) {
-        this.name = "Discord bot " + botName;
+    private final PrintStream output;
+    public BotLogger(String botName, Level defaultLevel, PrintStream output) {
+        this.name = "Discord bot: " + botName;
         this.defaultLevel = defaultLevel;
+        this.output = output;
     }
-    public BotLogger(String botName) {
-        this(botName, Level.INFO);
+    public BotLogger(String botName, PrintStream output) {
+        this(botName, Level.INFO, output);
     }
 
     public void setDefaultLevel(Level defaultLevel) {
@@ -29,8 +33,7 @@ public class BotLogger extends AbstractLogger implements Logger {
 
     @Override
     protected void handleNormalizedLoggingCall(Level level, Marker marker, String s, Object[] objects, Throwable throwable) {
-        LoggingMessage message = LoggingMessage.of(name, s + Arrays.toString(objects) + throwable.getMessage(), level);
-        System.err.print(message.getMessage());
+        output.print("[" + name + "]" + level.toString() + ": " + s + "\n");
     }
 
     @Override
